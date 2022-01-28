@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
-
-const Color primaryColor = Colors.orange;
-const TargetPlatform platform = TargetPlatform.android;
-
-void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   final String appTitle = 'FlutterFest';
@@ -24,16 +18,15 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ScaffoldTest2(),
-      // initialRoute: '/HomePage',
-      // routes: {
-      //   '/HomePage': (context) => MyHomePage(
-      //         title: appTitle,
-      //         opacity: 0.7,
-      //       ),
-      //   '/HelpPage': (context) => const HelpPage(),
-      //   '/ScaffoldTest': (context) => const ScaffoldTest(),
-      // },
+      initialRoute: '/HomePage',
+      routes: {
+        '/HomePage': (context) => MyHomePage(
+              title: appTitle,
+              opacity: 0.7,
+            ),
+        '/HelpPage': (context) => const HelpPage(),
+        '/ScaffoldTest': (context) => const ScaffoldTest(),
+      },
     );
   }
 }
@@ -68,6 +61,27 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class HelpPage extends StatelessWidget {
+  const HelpPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: Center(
+          child: Column(children: [
+        const Text('Help Page'),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('BACK PAGE'),
+        ),
+      ])),
+    );
   }
 }
 
@@ -241,234 +255,5 @@ class ScaffoldTest extends StatelessWidget {
             ],
           ),
         ));
-  }
-}
-
-class ScaffoldTest2 extends StatefulWidget {
-  const ScaffoldTest2({Key? key}) : super(key: key);
-
-  @override
-  State<ScaffoldTest2> createState() => _ScaffoldTest2State();
-}
-
-class _ScaffoldTest2State extends State<ScaffoldTest2> {
-  double seeds = 100.0;
-
-  int get seedCount => seeds.floor();
-
-  final snakBar = SnackBar(
-    content: const Text('Yay ! A SnackBar'),
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: () {},
-    ),
-  );
-
-  SnackBar get snackBar => snakBar;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      // ? App Bar Section
-      appBar: AppBar(
-        actions: const [],
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: const [
-            Text('Süleyman Gökhan BİRKİN'),
-            CircleAvatar(
-              backgroundImage: NetworkImage(
-                  'https://media-exp1.licdn.com/dms/image/C4D03AQEaQ5jkiJ1vhA/profile-displayphoto-shrink_800_800/0/1614202650100?e=1648684800&v=beta&t=E-mM2HOYZ5usVVart5y-xe76yNMyU3AQyo7IlUjKpUc'),
-              backgroundColor: Colors.white,
-              radius: 30.0,
-            )
-          ],
-        ),
-      ),
-      // ? Scaffold Stye  Props
-      backgroundColor: Colors.white,
-      // ? Drawers Section
-      drawer: Drawer(
-        child: Column(
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: const Text('Ana Sayfa'),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('Profil'),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text('Test'),
-            ),
-          ],
-        ),
-      ),
-      // ? Bottom Nav Bar Section
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xFF121212),
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white.withOpacity(.60),
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
-        onTap: (value) {
-          // Respond to item press.
-        },
-        items: const [
-          BottomNavigationBarItem(
-            label: 'Favorites',
-            icon: Icon(Icons.favorite),
-          ),
-          BottomNavigationBarItem(
-            label: 'Music',
-            icon: Icon(Icons.music_note),
-          ),
-          BottomNavigationBarItem(
-            label: 'Places',
-            icon: Icon(Icons.location_on),
-          ),
-          BottomNavigationBarItem(
-            label: 'News',
-            icon: Icon(Icons.library_books),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              GestureDetector(
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 3),
-                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Gesture Detector Button'),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                },
-                child: const Text('Show Snackbar'),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.transparent),
-                    ),
-                    child: SizedBox(
-                      width: 400,
-                      height: 400,
-                      child: CustomPaint(
-                        painter: SunflowerPainter(seedCount),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Text("Showing $seedCount seeds"),
-              ConstrainedBox(
-                constraints: const BoxConstraints.tightFor(width: 300),
-                child: Slider.adaptive(
-                    value: seeds,
-                    min: 20,
-                    max: 2000,
-                    onChanged: (newValue) {
-                      setState(() {
-                        seeds = newValue;
-                      });
-                    }),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class HelpPage extends StatelessWidget {
-  const HelpPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-          child: Column(children: [
-        const Text('Help Page'),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('BACK PAGE'),
-        ),
-      ])),
-    );
-  }
-}
-
-class SunflowerPainter extends CustomPainter {
-  static const seedRadius = 2.0;
-  static const scaleFactor = 4;
-  static const tau = math.pi * 2;
-
-  static final phi = (math.sqrt(5) + 1) / 2;
-
-  final int seeds;
-
-  SunflowerPainter(this.seeds);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = size.width / 2;
-
-    for (var i = 0; i < seeds; i++) {
-      final theta = i * tau / phi;
-      final r = math.sqrt(i) * scaleFactor;
-      final x = center + r * math.cos(theta);
-      final y = center - r * math.sin(theta);
-      final offset = Offset(x, y);
-      if (!size.contains(offset)) {
-        continue;
-      }
-      drawSeed(canvas, x, y);
-    }
-  }
-
-  @override
-  bool shouldRepaint(SunflowerPainter oldDelegate) {
-    return oldDelegate.seeds != seeds;
-  }
-
-  // Draw a small circle representing a seed centered at (x,y).
-  void drawSeed(Canvas canvas, double x, double y) {
-    final paint = Paint()
-      ..strokeWidth = 2
-      ..style = PaintingStyle.fill
-      ..color = primaryColor;
-    canvas.drawCircle(Offset(x, y), seedRadius, paint);
   }
 }
