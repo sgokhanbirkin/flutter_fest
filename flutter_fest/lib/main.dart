@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_fest/Listeler&Widgetlar%201/listeler.dart';
+import 'package:flutter_fest/Listeler&Widgetlar%202/listeler_widget_2.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,10 +8,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
-      home: ListelerWidget(),
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: const ListelerWidget2(),
     );
   }
 }
